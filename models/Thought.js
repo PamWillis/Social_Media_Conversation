@@ -1,8 +1,11 @@
 // Define Mongoose
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const thoughtSchema = new mongoose.Schema({
-    thoughtText: { type: String, required: true },
+const thoughtSchema = new Schema(
+    {
+    thoughtText: { 
+    type: String,
+    required: true,
     min_length: 1,
     max_length: 280,
 },
@@ -11,15 +14,21 @@ createdAt: {
     imutable: true,
     default: () => Date.now(),
 },
-updatedAt: {
-    type: Date,
-    default: () => Date.now(),
-}
+username: {
+type: String,
+required: true,
+},
+},
+{
+    toJSON: {
+        virtuals: true,
+    },
+    id: false,
+});
 
-userSchema.query.
 
-userSchema.virtual("reactionCount").length(function () {
-    return `$(this.reaction) <$(this.thoughts)>`
+thoughtSchema.virtual("reactionCount").get(function () {
+    return this.reactions.length;
 })
-
-module.exports = thoughtSchema;
+const Thought = model('thought', thoughtSchema);
+module.exports = Thought;
