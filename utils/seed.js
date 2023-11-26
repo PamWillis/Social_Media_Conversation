@@ -9,7 +9,7 @@ db.once('open', async () => {
     await Thought.deleteMany({})
     await User.deleteMany({})
     //Inside the same function - create fake data and add to model
-    const generateFakeUser = () => {
+    const generateFakerUser = () => {
         return {
             id: faker.string.uuid(),
             email: faker.internet.email(),
@@ -17,7 +17,7 @@ db.once('open', async () => {
             friends: faker.string.uuid(),
         }
     }
-    const generateFakeThought = () => {
+    const generateFakerThought = () => {
         return {
             id: faker.string.uuid(),
             thoughtText: faker.lorem.lines(),
@@ -26,8 +26,8 @@ db.once('open', async () => {
             reaction: faker.lorem.lines(),
         }
     }
-    await User.collection.insertMany(generateFakeUser)
-    Thought.create({generateFakeThought, generateFakeThought})
+    await User.collection.insertMany(generateFakerUser)
+    Thought.create({generateFakerThought, generateFakerThought})
     console.log("FINISHED SEEDING")
     process.exit(0);
     

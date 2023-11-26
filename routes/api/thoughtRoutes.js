@@ -18,8 +18,8 @@ router
     .put(updateThought)
     .delete(deleteThought);
 
-// /api/thoughts/:thougtId/reactions
-router.route('/:userId/reactions').create(createReaction);
+// /api/thoughts/:thoughtId/reactions
+router.route('/:thoughtId/reactions').post(createReaction);
 
 // /api/thoughts/:thougtId/reactions
 router.route('/:userId/reactions/:reactionId').delete(removeReaction);
