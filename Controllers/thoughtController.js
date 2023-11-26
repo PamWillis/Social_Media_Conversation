@@ -94,7 +94,7 @@ module.exports = {
         }
     },
     // Delete a reaction and remove them from the thought
-    async deleteReaction(req, res) {
+    async removeReaction(req, res) {
         try {
             const reaction = await Reaction.findOneAndRemove({ _id: req.params.reactionId });
 
