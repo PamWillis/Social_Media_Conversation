@@ -93,8 +93,8 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // Delete a friend and remove them from the user
-    async deleteFriend(req, res) {
+    // Remove a friend and remove them from the user by delete method
+    async removeFriend(req, res) {
         try {
             const friend = await Friend.findOneAndRemove({ _id: req.params.friendId });
 
@@ -110,11 +110,11 @@ module.exports = {
 
             if (!user) {
                 return res.status(404).json({
-                    message: 'Friend deleted, but no users found',
+                    message: 'Friend removed, but no users found',
                 });
             }
 
-            res.json({ message: 'Friend successfully deleted' });
+            res.json({ message: 'Friend successfully removed' });
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
