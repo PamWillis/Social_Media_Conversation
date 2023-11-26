@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, friends } = require('../models');
 
 module.exports = {
 
@@ -70,4 +70,56 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+
+    //add a friend to a user
+    async addFriend(req, res) {
+        console.log('You are adding a friend');
+        console.log(req.body);
+
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { friends: req.body } },
+                { runValidators: true, new: true }
+            );
+
+            if (!user) {
+                return res
+                    .status(404)
+                    .json({ message: 'No user found with that ID :(' });
+            }
+
+            res.json(user);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    // Delete a friend and remove them from the user
+    async deleteFriend(req, res) {
+        try {
+            const friend = await Friend.findOneAndRemove({ _id: req.params.friendId });
+
+            if (!friend) {
+                return res.status(404).json({ message: 'No such friend exists' });
+            }
+
+            const user = await User.findOneAndUpdate(
+                { friends: req.params.friendId },
+                { $pull: { friends: req.params.friendId } },
+                { new: true }
+            );
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'Friend deleted, but no users found',
+                });
+            }
+
+            res.json({ message: 'Friend successfully deleted' });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+
 };
