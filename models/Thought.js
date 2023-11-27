@@ -1,11 +1,13 @@
 // Define Mongoose
-const { Schema, model } = require('mongoose');
-
+const { Schema, model, Types } = require('mongoose');
+function dateFormat(createdatVal) {
+return "this is date"
+}
 const reactionSchema = new Schema(
     {
       reactionId: {
         type: Schema.Types.ObjectId,
-        default: new Schema.Types.ObjectId(),
+        default: () => new Types.ObjectId()
       },
       reactionBody: {
         type: String,
@@ -58,7 +60,7 @@ const reactionSchema = new Schema(
   );
 
 thoughtSchema.virtual("reactionCount").get(function () {
-    return `${this.reactions.length}`;
+    return this.reactions.length;
 })
 const Thought = model('Thought', thoughtSchema);
 module.exports = Thought;

@@ -1,4 +1,4 @@
-const { Thought, Reaction } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
     // Get all thoughts
@@ -31,7 +31,7 @@ module.exports = {
             const thought = await Thought.create(req.body);
 
             // Assuming the user is associated with the thought
-            const user = await User.findById(req.user.id);
+            const user = await User.findById(req.body.userId);
             user.thoughts.push(thought);
             await user.save();
 
