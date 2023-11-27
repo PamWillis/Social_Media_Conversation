@@ -1,8 +1,10 @@
 // Define Mongoose
 const { Schema, model, Types } = require('mongoose');
-function dateFormat(createdatVal) {
-return "this is date"
+
+function dateFormat(createdAtVal) {
+  return createdAtVal.toLocaleDateString();
 }
+
 const reactionSchema = new Schema(
     {
       reactionId: {
