@@ -47,7 +47,7 @@ module.exports = {
         try {
            
             const thought = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId, userId: req.user._id }, // Check if the user is the owner of the thought
+                { _id: req.params.thoughtId, userId: req.body._id }, // Check if the user is the owner of the thought
                 { $set: req.body },
                 { new: true }
                 
@@ -66,7 +66,7 @@ module.exports = {
     async deleteThought(req, res) {
         try {
             const thought = await Thought.findOneAndDelete(
-                { _id: req.params.thoughtId, userId: req.user._id },
+                { _id: req.params.thoughtId, userId: req.body._id },
             );
             if (!thought) {
                 res.status(404).json({ message: 'No thought with that ID' });
