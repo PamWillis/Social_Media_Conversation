@@ -1,6 +1,7 @@
 const { Thought, User } = require('../models');
 
 module.exports = {
+
     // Get all thoughts
     async getThoughts(req, res) {
         try {
@@ -44,31 +45,38 @@ module.exports = {
     // Update a thought
     async updateThought(req, res) {
         try {
+           
             const thought = await Thought.findOneAndUpdate(
-                { _id: req.params.thoughtId },
+                { _id: req.params.thoughtId, userId: req.user._id }, // Check if the user is the owner of the thought
                 { $set: req.body },
+                { new: true }
+                
             );
+            console.log(req)
             if (!thought) {
                 res.status(404).json({ message: 'No thought with this id!' });
             }
             res.json(thought);
         } catch (err) {
+            console.log(err)
             res.status(500).json(err);
         }
     },
-    //delete a thought
+    // Delete a thought
     async deleteThought(req, res) {
         try {
-            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-
+            const thought = await Thought.findOneAndDelete(
+                { _id: req.params.thoughtId, userId: req.user._id },
+            );
             if (!thought) {
                 res.status(404).json({ message: 'No thought with that ID' });
             }
+            res.json({ message: 'Thought deleted successfully' });
         } catch (err) {
             res.status(500).json(err);
         }
     },
-    
+
     // add a reaction
     async createReaction(req, res) {
         console.log('You are adding a reaction');
@@ -79,7 +87,7 @@ module.exports = {
                 { _id: req.params.thoughtId },
                 { $addToSet: { reaction: req.body } },
                 { runValidators: true, new: true }
-             
+
             );
 
             if (!thought) {
