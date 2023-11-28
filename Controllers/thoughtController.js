@@ -45,12 +45,12 @@ module.exports = {
     // Update a thought
     async updateThought(req, res) {
         try {
-           
+
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId, userId: req.body._id }, // Check if the user is the owner of the thought
                 { $set: req.body },
                 { new: true }
-                
+
             );
             console.log(req)
             if (!thought) {
@@ -85,7 +85,7 @@ module.exports = {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $addToSet: { reaction: req.body } },
+                { $addToSet: { reactions: req.body } },
                 { runValidators: true, new: true }
 
             );
@@ -96,23 +96,19 @@ module.exports = {
                     .json({ message: 'No thought found with that ID :(' });
             }
 
-            res.json(user);
+            res.json(thought);
         } catch (err) {
+            console.log(err)
             res.status(500).json(err);
         }
     },
     // Delete a reaction and remove them from the thought
     async removeReaction(req, res) {
         try {
-            const reaction = await Reaction.findOneAndRemove({ _id: req.params.reactionId });
-
-            if (!reaction) {
-                return res.status(404).json({ message: 'No such reaction exists' });
-            }
-
+            console.log(res)
             const thought = await Thought.findOneAndUpdate(
-                { reactions: req.params.reactionId },
-                { $pull: { reaction: req.params.reactionId } },
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: req.params.reactionId } },
                 { new: true }
             );
 
