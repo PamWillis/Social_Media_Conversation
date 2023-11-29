@@ -71,7 +71,6 @@ module.exports = {
             res.json({ message: 'User deleted!' });
 
         } catch (err) {
-            console.log(err)
             res.status(500).json(err);
         }
     },
@@ -116,7 +115,6 @@ module.exports = {
 
             res.json({ message: 'Friend successfully removed' });
         } catch (err) {
-            console.log(err);
             res.status(500).json(err);
         }
     },
