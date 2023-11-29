@@ -18,7 +18,7 @@
 [Click here](https://drive.google.com/file/d/1q4AjATxqBJKJ4Y1ilIMXdKCWCfjxG6fi/view?usp=sharing)  
 
 ## &nbsp;&nbsp;&nbsp;  Contributing  
-    Assistance was given with my tutor Juan Delgado, AskBCS Learning Assistants and Xpert Learning Assistants
+    Assistance was given with my tutor Juan Delgado, AskBCS Learning Assistants and Xpert Learning Assistants. For the bonus I was able to refer to the mini project for reference.
 
 
     
