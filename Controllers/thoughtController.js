@@ -117,15 +117,15 @@ module.exports = {
 
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: { reactions: req.params.reactionId } },
-                { new: true }
+                { $pull: { reaction: { reactionId: req.params.reactionId } } },
+                { runValidators: true, new: true }
             );
 
             if (!thought) {
-                return res.status(404).json({
-                    message: 'Reaction deleted, but no thought found',
-                });
-            }
+                return res
+                  .status(404)
+                  .json({ message: 'No thought found with that ID :(' });
+              }
 
             res.json({ message: 'Reaction successfully deleted' });
         } catch (err) {
