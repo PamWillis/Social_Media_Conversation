@@ -67,8 +67,8 @@ module.exports = {
             }
 
             // Bonus
-            await Thought.deleteMany({ _id: { $in: user.thoughts } });
-            res.json({ message: 'User and thoughts deleted!' });
+            // await Thought.deleteMany({ _id: { $in: user.thoughts } });
+            res.json({ message: 'User deleted!' });
 
         } catch (err) {
             console.log(err)
@@ -78,8 +78,6 @@ module.exports = {
 
     //add a friend to a user
     async addFriend(req, res) {
-        console.log('You are adding a friend');
-        console.log(req.body);
 
         try {
             const user = await User.findOneAndUpdate(
