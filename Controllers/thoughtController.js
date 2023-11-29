@@ -66,12 +66,24 @@ module.exports = {
     async deleteThought(req, res) {
         try {
             const thought = await Thought.findOneAndDelete(
-                { _id: req.params.thoughtId, userId: req.body._id },
-            );
+                { _id: req.params.thoughtId, userId: req.body._id });
+
             if (!thought) {
                 res.status(404).json({ message: 'No thought with that ID' });
             }
-            res.json({ message: 'Thought deleted successfully' });
+
+            const user = await User.findOneAndUpdate(
+                { thoughts: req.params.thoughtId },
+                { $pull: { thoughts: req.params.thoughtId } },
+                { new: true }
+            );
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'Thought deleted, but no user found',
+                });
+            }
+        res.json({ message: 'Thought deleted successfully' });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -96,14 +108,14 @@ module.exports = {
 
             res.json(thought);
         } catch (err) {
-          
+
             res.status(500).json(err);
         }
     },
     // Delete a reaction and remove them from the thought
     async removeReaction(req, res) {
         try {
-       
+
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $pull: { reactions: req.params.reactionId } },
@@ -118,7 +130,7 @@ module.exports = {
 
             res.json({ message: 'Reaction successfully deleted' });
         } catch (err) {
-        
+
             res.status(500).json(err);
         }
     },
