@@ -15,7 +15,7 @@
     in insomnia you can set up to run CRUD which you can view thru my video to show more detail.  
  
  A video showing the walk thru:  
-[Click here](https://drive.google.com/file/d/1rjGauBT3XtGK_fem6jHssLyJoJECX__z/view?usp=sharing)  
+[Click here](https://drive.google.com/file/d/1q4AjATxqBJKJ4Y1ilIMXdKCWCfjxG6fi/view?usp=sharing)  
 
 ## &nbsp;&nbsp;&nbsp;  Contributing  
     Assistance was given with my tutor Juan Delgado, AskBCS Learning Assistants and Xpert Learning Assistants
